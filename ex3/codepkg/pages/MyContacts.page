@@ -1,4 +1,9 @@
 <apex:page sidebar="false" docType="html-5.0">
+
+<apex:remoteObjects jsNamespace="SObjectModel">
+  <apex:remoteObjectModel name="Contact" fields="FirstName,LastName,Name,Phone,Email,CreatedDate"/>
+</apex:remoteObjects>
+
 <!--jQuery TO SHOW THE NEW CONTACT FORM ON BUTTON CLICK-->
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <!--SLDS STYLESHEET STATIC RESOURCE-->
@@ -70,9 +75,27 @@
     <form class="slds-form--stacked">
 
       <div class="slds-form-element">
-        <label class="slds-form-element__label" for="contactName">Name</label>
+        <label class="slds-form-element__label" for="contactName">First Name</label>
         <div class="slds-form-element__control">
-          <input id="contactName" class="slds-input" type="text" placeholder="New contact"/>
+          <input id="firstName" class="slds-input" type="text" placeholder="First Name"/>
+        </div>
+      </div>
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="contactName">Last Name</label>
+        <div class="slds-form-element__control">
+          <input id="lastName" class="slds-input" type="text" placeholder="Last Name"/>
+        </div>
+      </div>
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="contactName">Phone</label>
+        <div class="slds-form-element__control">
+          <input id="phone" class="slds-input" type="text" placeholder="Phone"/>
+        </div>
+      </div>
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="contactName">Email</label>
+        <div class="slds-form-element__control">
+          <input id="email" class="slds-input" type="text" placeholder="Email"/>
         </div>
       </div>
       <button class="slds-button slds-button--brand slds-m-top--medium" type="button" onClick="createContact()">Create Contact</button>
@@ -95,6 +118,31 @@ var j$ = jQuery.noConflict();
 j$( "#newContact" ).on( "click", function() {
   j$('#contactFrm').show();
 });
+
+var contact = new SObjectModel.Contact();
+var outputDiv = document.getElementById("contactList");
+
+j$('#contactFrm').hide();
+
+function createContact() {
+  var firstName = document.getElementById("firstName").value;
+  var lastName = document.getElementById("lastName").value;
+  var phone = document.getElementById("phone").value;
+  var email = document.getElementById("email").value;
+  var params = {
+    FirstName: firstName,
+    LastName: lastName,
+    Phone: phone,
+    Email: email
+  };
+  var contact = new SObjectModel.Contact();
+  contact.create(params, function(error, records) {
+    if (error) {
+      alert(error.message);
+    } else {
+  });
+  return false;
+}
 </script>
 </html>
 </apex:page>
