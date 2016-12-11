@@ -1,0 +1,184 @@
+<apex:page sidebar="false" docType="html-5.0">
+
+<apex:remoteObjects jsNamespace="SObjectModel">
+  <apex:remoteObjectModel name="Contact" fields="FirstName,LastName,Name,Phone,Email,CreatedDate"/>
+</apex:remoteObjects>
+
+<!--jQuery TO SHOW THE NEW CONTACT FORM ON BUTTON CLICK-->
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<!--SLDS STYLESHEET STATIC RESOURCE-->
+<apex:stylesheet value="{!URLFOR($Resource.LDS, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<body>
+<!-- REQUIRED SLDS WRAPPER -->
+<div class="zaki-yama-swtt16minihacks">
+
+<!-- PAGE HEADER -->
+<div class="slds-page-header" role="banner">
+
+  <!-- LAYOUT GRID -->
+  <div class="slds-grid">
+
+    <!-- GRID COL -->
+    <div class="slds-col">
+
+      <!-- HEADING AREA -->
+      <!-- MEDIA OBJECT = FIGURE + BODY -->
+        <div class="slds-media">
+
+          <div class="slds-media__figure">
+          <span class="slds-icon__container slds-icon__container--circle slds-icon-action-description">
+          <svg aria-hidden="true" class="slds-icon slds-icon--medium ">
+            <use xlink:href="{!URLFOR($Resource.LDS, '/assets/icons/action-sprite/svg/symbols.svg#new_custom43')}"></use>
+          </svg></span>
+          </div>
+
+          <div class="slds-media__body">
+            <p class="slds-text-heading--label">Contacts</p>
+            <h1 class="slds-text-heading--medium">My Contacts</h1>
+          </div>
+
+        </div>
+      <!-- / MEDIA OBJECT -->
+      <!-- /HEADING AREA -->
+
+    </div>
+    <!-- /GRID COL -->
+
+    <!-- GRID COL -->
+    <div id="newContact" class="slds-col slds-no-flex slds-align-middle">
+
+        <button class="slds-button slds-button--neutral">
+          New Contact
+        </button>
+
+    </div>
+    <!-- / GRID COL -->
+
+  </div>
+  <!-- / LAYOUT GRID -->
+
+</div>
+<!-- / PAGE HEADER -->
+
+<!-- CREATE NEW CONTACT /
+    STYLE IS DESPLAY NONE TO HIDE THE FORM INITIALLY AND WE USE THE ID TO MAKE IT VISIBLE WHEN THE NEW CONTACT BUTTON IS CLICKED-->
+<div style="display:none;" id="contactFrm" aria-labelledby="newcontactform">
+
+  <!-- BOXED AREA -->
+  <fieldset class="slds-box slds-theme--default slds-container--small">
+
+    <legend id="newcontactform" class="slds-text-heading--medium slds-p-vertical--medium">Add a new contact</legend>
+
+    <!-- CREATE NEW CONTACT FORM -->
+    <form class="slds-form--stacked">
+
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="contactName">First Name</label>
+        <div class="slds-form-element__control">
+          <input id="firstName" class="slds-input" type="text" placeholder="First Name"/>
+        </div>
+      </div>
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="contactName">Last Name</label>
+        <div class="slds-form-element__control">
+          <input id="lastName" class="slds-input" type="text" placeholder="Last Name"/>
+        </div>
+      </div>
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="contactName">Phone</label>
+        <div class="slds-form-element__control">
+          <input id="phone" class="slds-input" type="text" placeholder="Phone"/>
+        </div>
+      </div>
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="contactName">Email</label>
+        <div class="slds-form-element__control">
+          <input id="email" class="slds-input" type="text" placeholder="Email"/>
+        </div>
+      </div>
+      <button class="slds-button slds-button--brand slds-m-top--medium" type="button" onClick="createContact()">Create Contact</button>
+    </form>
+    <!-- CREATE NEW CONTACT FORM -->
+
+  </fieldset>
+  <!-- / BOXED AREA -->
+
+</div>
+<!-- / CREATE NEW CONTACT -->
+
+<div class="slds-p-vertical--medium" id="contactList"></div>
+
+</div>
+<!-- /REQUIRED SLDS WRAPPER -->
+</body>
+<script>
+//FIRST AND MOST IMPORTANT STEP IS TO DECLARE JQUERY NO CONFLICT MODE
+var j$ = jQuery.noConflict();
+//jQuery OnClick FUNCTION TO MAKE THE FORM VISIBLE WHEN WE CLICK THE NEW CONTACT BUTTON
+j$( "#newContact" ).on( "click", function() {
+  j$('#contactFrm').show();
+});
+
+var contact = new SObjectModel.Contact();
+var outputDiv = document.getElementById("contactList");
+
+function updateOutputDiv() {
+  j$('#contactFrm').hide();
+  contact.retrieve(
+    {orderby: [{CreatedDate: 'DESC'}], limit: 10},
+    function(error, records) {
+      if (error) {
+        alert(error.message);
+      } else {
+        var html = '<div class="slds-scrollable--x"><table class="slds-table slds-table--bordered">';
+
+        html += '<thead><tr>'
+                + '<th scope="col">Name</th>'
+                + '<th scope="col">Phone</th>'
+                + '<th scope="col">Email</th>'
+              + '</tr></thead>';
+        html += '<tbody>';
+
+        console.log('retrieved contacts=>');
+        records.forEach(function(record) {
+          console.log(record.get("Phone"));
+          html += '<tr>'
+                  + '<td>' + record.get("Name") + '</td>'
+                  + '<td>' + (record.get("Phone") || '') + '</td>'
+                  + '<td>' + record.get("Email") + '</td>';
+                + '</tr>'
+        });
+        html += '</tbody></table></div>';
+        outputDiv.innerHTML = html;
+      }
+    }
+  );
+}
+
+updateOutputDiv();
+
+function createContact() {
+  var firstName = document.getElementById("firstName").value;
+  var lastName = document.getElementById("lastName").value;
+  var phone = document.getElementById("phone").value;
+  var email = document.getElementById("email").value;
+  var params = {
+    FirstName: firstName,
+    LastName: lastName,
+    Phone: phone,
+    Email: email
+  };
+  var contact = new SObjectModel.Contact();
+  contact.create(params, function(error, records) {
+    if (error) {
+      alert(error.message);
+    } else {
+  });
+  return false;
+}
+</script>
+</html>
+</apex:page>
+
