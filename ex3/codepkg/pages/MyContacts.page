@@ -175,6 +175,7 @@ function createContact() {
     if (error) {
       alert(error.message);
     } else {
+    }
   });
   return false;
 }
