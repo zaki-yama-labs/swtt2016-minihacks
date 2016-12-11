@@ -1,0 +1,101 @@
+<apex:page sidebar="false" docType="html-5.0">
+<!--jQuery TO SHOW THE NEW ACCOUNT FORM ON BUTTON CLICK-->
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<!--SLDS STYLESHEET STATIC RESOURCE-->
+<apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<body>
+<!-- REQUIRED SLDS WRAPPER -->
+<div class="slds">
+
+<!-- PAGE HEADER -->
+<div class="slds-page-header" role="banner">
+
+  <!-- LAYOUT GRID -->
+  <div class="slds-grid">
+
+    <!-- GRID COL -->
+    <div class="slds-col">
+
+      <!-- HEADING AREA -->
+      <!-- MEDIA OBJECT = FIGURE + BODY -->
+        <div class="slds-media">
+
+          <div class="slds-media__figure">
+          <span class="slds-icon__container slds-icon__container--circle slds-icon-action-description">
+          <svg aria-hidden="true" class="slds-icon slds-icon--medium ">
+            <use xlink:href="{!URLFOR($Resource.SLDS0120, '/assets/icons/action-sprite/svg/symbols.svg#new_custom43')}"></use>
+          </svg></span>
+          </div>
+
+          <div class="slds-media__body">
+            <p class="slds-text-heading--label">Accounts</p>
+            <h1 class="slds-text-heading--medium">My Accounts</h1>
+          </div>
+
+        </div>
+      <!-- / MEDIA OBJECT -->
+      <!-- /HEADING AREA -->
+
+    </div>
+    <!-- /GRID COL -->
+
+    <!-- GRID COL -->
+    <div id="newAct" class="slds-col slds-no-flex slds-align-middle">
+
+        <button class="slds-button slds-button--neutral">
+          New Account
+        </button>
+
+    </div>
+    <!-- / GRID COL -->
+
+  </div>
+  <!-- / LAYOUT GRID -->
+
+</div>
+<!-- / PAGE HEADER -->
+
+<!-- CREATE NEW ACCOUNT /
+    STYLE IS DESPLAY NONE TO HIDE THE FORM INITIALLY AND WE USE THE ID TO MAKE IT VISIBLE WHEN THE NEW ACCOUNT BUTTON IS CLICKED-->
+<div style="display:none;" id="actFrm" aria-labelledby="newaccountform">
+
+  <!-- BOXED AREA -->
+  <fieldset class="slds-box slds-theme--default slds-container--small">
+
+    <legend id="newaccountform" class="slds-text-heading--medium slds-p-vertical--medium">Add a new account</legend>
+
+    <!-- CREATE NEW ACCOUNT FORM -->
+    <form class="slds-form--stacked">
+
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="accountName">Name</label>
+        <div class="slds-form-element__control">
+          <input id="accountName" class="slds-input" type="text" placeholder="New account"/>
+        </div>
+      </div>
+      <button class="slds-button slds-button--brand slds-m-top--medium" type="button" onClick="createAccount()">Create Account</button>
+    </form>
+    <!-- CREATE NEW ACCOUNT FORM -->
+
+  </fieldset>
+  <!-- / BOXED AREA -->
+
+</div>
+<!-- / CREATE NEW ACCOUNT -->
+
+</div>
+<!-- /REQUIRED SLDS WRAPPER -->
+</body>
+<script>
+  //FIRST AND MOST IMPORTANT STEP IS TO DECLARE JQUERY NO CONFLICT MODE
+  var j$=jQuery.noConflict();
+  //jQuery OnClick FUNCTION TO MAKE THE FORM VISIBLE WHEN WE CLICK THE NEW ACCOUNT BUTTON
+    j$( "#newAct" ).on( "click", function() {
+        j$('#actFrm').show();
+    });
+</script>
+</html>
+</apex:page>
+
