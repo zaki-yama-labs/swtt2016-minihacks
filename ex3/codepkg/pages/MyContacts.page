@@ -2,7 +2,7 @@
 <!--jQuery TO SHOW THE NEW ACCOUNT FORM ON BUTTON CLICK-->
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <!--SLDS STYLESHEET STATIC RESOURCE-->
-<apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+<apex:stylesheet value="{!URLFOR($Resource.LDS, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
 
 <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <body>
@@ -25,7 +25,7 @@
           <div class="slds-media__figure">
           <span class="slds-icon__container slds-icon__container--circle slds-icon-action-description">
           <svg aria-hidden="true" class="slds-icon slds-icon--medium ">
-            <use xlink:href="{!URLFOR($Resource.SLDS0120, '/assets/icons/action-sprite/svg/symbols.svg#new_custom43')}"></use>
+            <use xlink:href="{!URLFOR($Resource.LDS, '/assets/icons/action-sprite/svg/symbols.svg#new_custom43')}"></use>
           </svg></span>
           </div>
 
