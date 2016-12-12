@@ -1,0 +1,16 @@
+{
+  "name": "ex6",
+  "version": "1.0.0",
+  "description": "課題6 - APIを使いこなす",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "querystring": "^0.2.0"
+  }
+}

@@ -2,3 +2,4 @@
 *.properties
 retrievecodepkg/*
 !retrievecodepkg/package.xml
+node_modules
