@@ -9,14 +9,13 @@ global with sharing class MyRestResource {
 		return result;
 	}
 
-	@HttpPost
-	global static String doPost(String name,
-			String phone, String website) {
-		Account account = new Account();
-		account.Name = name;
-		account.phone = phone;
-		account.website = website;
-		insert account;
-		return account.Id;
+	@HttpPut
+	global static void deactivate(Id contactId) {
+		RestRequest req = RestContext.request;
+		RestResponse res = RestContext.response;
+
+		Contact contact = new Contact(Id = contactId);
+		contact.Description = 'アクティブでない取引先責任者';
+		update contact;
 	}
 }
