@@ -19,6 +19,15 @@ Apex 側はサンプルコードの通りにやればそこまで難しくない
 
 ### Usage
 
+#### Apex
+
+- 事前に Force.com Migration Tool をインストール
+	- https://help.salesforce.com/apex/HTViewSolution?id=000176910&language=ja
+- `build.properties.sample` に自分の組織のusername, password を入力し、`build.properties` として保存
+- `ant deployCode` を実行
+
+#### クライアントアプリケーション
+
 - 事前に接続アプリケーションを作成し、client id と client secret を取得しておく
 - index.js を開き、`CLIENT_ID` などに情報を入力
 - 以下を実行
