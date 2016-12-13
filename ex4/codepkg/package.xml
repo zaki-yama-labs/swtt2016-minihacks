@@ -7,6 +7,8 @@
     <types>
         <members>SearchContacts</members>
         <members>ContactList</members>
+        <members>SearchBar</members>
+        <members>OnEnterSearchBar</members>
         <members>PreviewApp</members>
         <name>AuraDefinitionBundle</name>
     </types>
