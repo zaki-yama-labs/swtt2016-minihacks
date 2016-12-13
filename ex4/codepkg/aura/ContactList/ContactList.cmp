@@ -1,0 +1,27 @@
+<aura:component access="global">
+  <aura:attribute name="contacts" type="Contact[]"/>
+
+  <ul class="slds-has-dividers--bottom-space">
+    <aura:iteration items="{!v.contacts}" var="contact">
+    <li class="slds-item">
+      <div class="slds-tile slds-media">
+        <div class="slds-media__figure">
+          <c:svg
+            class="slds-icon slds-icon-standard-groups"
+            ariaHidden="true"
+            xlinkHref="/resource/LDS/assets/icons/standard-sprite/svg/symbols.svg#contact"
+          />
+        </div>
+        <div class="slds-media__body">
+          <h3 class="slds-truncate" title="{!contact.Name}">{!contact.Name}</h3>
+          <div class="slds-tile__detail slds-text-body--small">
+            <ul class="slds-list--horizontal slds-has-dividers--right">
+              <li class="slds-item">{!contact.Account.Name}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </li>
+    </aura:iteration>
+  </ul>
+</aura:component>

@@ -1,0 +1,13 @@
+<aura:component implements="force:appHostable" controller="ContactController">
+  <aura:attribute name="contacts" type="Contact[]"/>
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+  <ltng:require
+    styles="/resource/LDS/assets/styles/salesforce-lightning-design-system-vf.css"
+  />
+
+  <div class="zaki-yama-swtt16minihacks">
+    <c:SearchBar onEnterSearchBar="{!c.search}" />
+    <c:ContactList contacts="{!v.contacts}" />
+  </div>
+</aura:component>
